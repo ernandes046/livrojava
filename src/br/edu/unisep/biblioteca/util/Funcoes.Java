@@ -1,0 +1,161 @@
+package br.edu.unisep.biblioteca.util;
+
+import br.edu.unisep.biblioteca.model.Autor;
+import br.edu.unisep.biblioteca.model.Emprestimo;
+import br.edu.unisep.biblioteca.model.Livro;
+import br.edu.unisep.biblioteca.model.Usuario;
+
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Funcoes {
+
+    private List<Livro> livros = new ArrayList<>();
+    private List<Autor> autores = new ArrayList<>();
+    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Emprestimo> emprestimos = new ArrayList<>();
+
+    public void novoLivro() {
+        String nome = JOptionPane.showInputDialog("Digite o nome do livro");
+        String tipo = JOptionPane.showInputDialog("Digite o tipo do livro");
+        String autor = JOptionPane.showInputDialog("Digite o autor do livro");
+        int ano = Integer.parseInt(JOptionPane.showInputDialog("Digite o ano do livro"));
+
+        Livro livro = new Livro();
+        livro.setNome(nome);
+        livro.setTipo(tipo);
+        livro.setAutor(autor);
+        livro.setAno(ano);
+
+        livros.add(livro);
+
+        JOptionPane.showMessageDialog(null, livro);
+    }
+
+    public void novoAutor() {
+        String nome = JOptionPane.showInputDialog("Digite o nome do autor");
+        int idade = Integer.parseInt(JOptionPane.showInputDialog("Digite a idade do autor"));
+
+        Autor autor = new Autor();
+        autor.setNome(nome);
+        autor.setIdade(idade);
+
+        autores.add(autor);
+
+        JOptionPane.showMessageDialog(null, autor);
+    }
+
+    public void novoUsuario() {
+        String nome = JOptionPane.showInputDialog("Digite o nome do usuario");
+        int idade = Integer.parseInt(JOptionPane.showInputDialog("Digite a idade do usuario"));
+
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setIdade(idade);
+
+        usuarios.add(usuario);
+
+        JOptionPane.showMessageDialog(null, usuario);
+    }
+
+    public void novoEmprestimo() {
+        Emprestimo emprestimo = new Emprestimo();
+        emprestimo.setData(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").getCalendar());
+        emprestimo.setDevolucao(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").getCalendar());
+
+        emprestimos.add(emprestimo);
+
+        JOptionPane.showMessageDialog(null, emprestimo);
+    }
+
+    public boolean escolherOpcao() {
+        String[] opcoes = {
+                "Adicionar Livro",
+                "Adicionar Autor.java",
+                "Adicionar Usuario",
+                "Adicionar Emprestimo",
+                "Listar Livros",
+                "Listar Autores",
+                "Listar Usuarios",
+                "Listar Emprestimos",
+                "Excluir Livro",
+                "Excluir Autor.java",
+                "Excluir Usuario",
+                "Excluir Emprestimo",
+        };
+
+        int opcaoEscolhida = JOptionPane.showOptionDialog(
+                null,
+                "Escolha uma Opcao",
+                "Menu Principal",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]
+        );
+
+        switch (opcaoEscolhida) {
+            case 0:
+                novoLivro();
+                break;
+            case 1:
+                novoAutor();
+                break;
+            case 2:
+                novoUsuario();
+                break;
+            case 3:
+                novoEmprestimo();
+                break;
+            case 4:
+                listarLivros();
+                break;
+            case 5:
+                listarAutores();
+                break;
+            case 6:
+                listarUsuarios();
+                break;
+            case 7:
+                listarEmprestimo();
+            default:
+                return false;
+        }
+        return true;
+    }
+
+    private void listarLivros() {
+        String texto = "Livros\n";
+        for (Livro livro : livros) {
+            texto += livro + "\n";
+        }
+        JOptionPane.showMessageDialog(null, texto);
+    }
+
+    private void listarAutores() {
+        String texto = "Autores\n";
+        for (Autor autor : autores) {
+            texto += autor + "\n";
+        }
+        JOptionPane.showMessageDialog(null, texto);
+    }
+
+    private void listarUsuarios() {
+        String texto = "Usuarios\n";
+        for (Usuario usuario : usuarios) {
+            texto += usuario + "\n";
+        }
+        JOptionPane.showMessageDialog(null, texto);
+    }
+
+    private void listarEmprestimo() {
+        String texto = "Emprestimo\n";
+        for (Emprestimo emprestimo : emprestimos) {
+            texto += emprestimo + "\n";
+        }
+        JOptionPane.showMessageDialog(null, texto);
+    }
+}
